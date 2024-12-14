@@ -528,9 +528,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: NB_GameplayMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 927018253202159509, guid: 065f83974238eed45973c0795dc6b22e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8130442625021036726, guid: 065f83974238eed45973c0795dc6b22e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 52.14
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1407,7 +1411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1692588306941826292, guid: a0810ac55619ca04b895706552ea6e3e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1692588306941826293, guid: a0810ac55619ca04b895706552ea6e3e, type: 3}
       propertyPath: m_Pivot.x
