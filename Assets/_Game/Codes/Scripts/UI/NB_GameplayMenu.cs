@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BabySound;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,8 +9,7 @@ namespace NultBolts
 {
     public class NB_GameplayMenu : MonoBehaviour
     {
-        [Header("Setup")]
-        [SerializeField] private Button btnSetting;
+        [Header("Setup")] [SerializeField] private Button btnSetting;
 
         [SerializeField] private Button btnNext;
         [SerializeField] private Button btnReset;
@@ -28,6 +28,7 @@ namespace NultBolts
             ShowLevelTitle();
             NultBoltsManager.Instance.actionLoadLevel += ShowLevelTitle;
         }
+
         private void OnDisable()
         {
             NultBoltsManager.Instance.actionLoadLevel -= ShowLevelTitle;
@@ -40,27 +41,36 @@ namespace NultBolts
 
         private void OnNext()
         {
-            NultBoltsManager.Instance.ChangeGameState(TypeManager.GameState.Win);
+            if (GameDataManager.Instance.playerData.intDiamond >= 500)
+            {
+                GameDataManager.Instance.playerData.SubDiamond(500);
+                NultBoltsManager.Instance.ChangeGameState(TypeManager.GameState.Win);
+            }
+            else
+            {
+                IAPScreen.Instance.gameObject.SetActive(true);
+            }
         }
+
         private void OnReset()
         {
             NultBoltsManager.Instance.ReloadLevel();
         }
+
         private void OnSetting()
         {
-
         }
+
         private void OnClickShopTheme()
         {
-
         }
+
         private void OnClickRemoveAds()
         {
-
         }
+
         private void OnListLevel()
         {
-
         }
     }
 }

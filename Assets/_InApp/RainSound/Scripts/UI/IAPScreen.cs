@@ -1,11 +1,12 @@
 ﻿using BabySound.Scripts;
+using SingleApp;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace BabySound
 {
-    public class IAPScreen : MonoBehaviour
+    public class IAPScreen : Singleton<IAPScreen>
     {
         [SerializeField] private BuyCoinButton[] _buttons;
 
@@ -15,6 +16,8 @@ namespace BabySound
             {
                 _buttons[i].Index = i;
             }
+            
+            gameObject.SetActive(false);
         }
     }
 }
