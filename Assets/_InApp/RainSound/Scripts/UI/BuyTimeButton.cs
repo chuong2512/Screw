@@ -71,8 +71,7 @@ public class BuyTimeButton : MonoBehaviour
         switch (_index)
         {
             case 0:
-                IAPManager.Instance.BuyProductID(IA
-                    PKey.PACK1_RE);
+                IAPManager.Instance.BuyProductID(IAPKey.PACK1_RE);
                 break;
             case 1:
                 IAPManager.Instance.BuyProductID(IAPKey.PACK2_RE);
