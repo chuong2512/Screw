@@ -5,7 +5,6 @@ using System.Collections.Generic;
 //电子邮件puhalskijsemen@gmail.com
 //网站 开vpn打开 http://web3incubators.com/
 //电报https://t.me/gamecode999
-
 using UnityEngine;
 
 namespace NultBolts
@@ -59,9 +58,11 @@ namespace NultBolts
                     {
                         return;
                     }
+
                     break;
                 }
             }
+
             if (holeC == null) return;
             cols = Physics2D.OverlapCircleAll(holdPos, 0.125f * holeC.transform.lossyScale.x);
 
@@ -82,6 +83,7 @@ namespace NultBolts
                                 currentScrew.PlayAnimPin();
                                 currentScrew = null;
                             }
+
                             return;
                         }
 
@@ -95,6 +97,7 @@ namespace NultBolts
                     {
                         plateScrewHoles.Add(hole as PlateScrewHole);
                     }
+
                     holeCount += 1;
                 }
                 else if (col.TryGetComponent(out Plate plate))
@@ -136,7 +139,6 @@ namespace NultBolts
                             }
                         });
                     }
-
                 }
 
                 void OnPin()
@@ -149,6 +151,7 @@ namespace NultBolts
                     {
                         item.Pin(currentScrew);
                     }
+
                     currentScrew = null;
                 }
             }
@@ -192,14 +195,7 @@ namespace NultBolts
 
         private void UnlockHole(BoardScrewHole screwHole, Action<bool> cb = null)
         {
-            // AdsHelper.Instance.showGift(GameRes.GetLevel(Level_type.Normal), "unlock_hole", state =>
-            // {
-            //     if (state == AD_State.AD_REWARD_OK)
-            //     {
-            //         screwHole.UnlockAds();
-            //     }
-            //     cb?.Invoke(state);
-            // });
+            QuangCao.Instance.PhatQuangCao(() => { screwHole.UnlockAds(); });
         }
     }
 }

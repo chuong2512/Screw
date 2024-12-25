@@ -10,7 +10,7 @@ public class BuyCoinButton : MonoBehaviour
 {
     [SerializeField] private Button _button;
     [SerializeField] private TextMeshProUGUI _text;
-    
+
     [SerializeField] private TextMeshProUGUI _priceText;
 
     [SerializeField] private int _index;
@@ -58,8 +58,14 @@ public class BuyCoinButton : MonoBehaviour
                 _coin = 1000;
                 break;
             case 4:
-                _priceText.SetText("0.99$");
-                _coin = 100;
+
+                if (GameDataManager.Instance.playerData.removeAds)
+                {
+                    _priceText.SetText("BOUGHT");
+                    break;
+                }
+
+                _priceText.SetText("0.49$");
                 break;
         }
 
@@ -84,7 +90,22 @@ public class BuyCoinButton : MonoBehaviour
             case 3:
                 IAPManager.Instance.BuyProductID(IAPKey.PACK4);
                 break;
+            case 4:
+                if (GameDataManager.Instance.playerData.removeAds)
+                {
+                    return;
+                }
+
+                IAPManager.OnPurchaseSuccess = RemoveAds;
+                IAPManager.Instance.BuyProductID(IAPKey.PACK4);
+                break;
         }
+    }
+
+    private void RemoveAds()
+    {
+        _priceText.SetText("BOUGHT");
+        GameDataManager.Instance.playerData.RemoveAds();
     }
 
     private void AddCoin()

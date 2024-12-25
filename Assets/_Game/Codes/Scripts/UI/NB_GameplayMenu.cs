@@ -41,9 +41,9 @@ namespace NultBolts
 
         private void OnNext()
         {
-            if (GameDataManager.Instance.playerData.intDiamond >= 500)
+            if (GameDataManager.Instance.playerData.intDiamond >= 200)
             {
-                GameDataManager.Instance.playerData.SubDiamond(500);
+                GameDataManager.Instance.playerData.SubDiamond(200);
                 NultBoltsManager.Instance.ChangeGameState(TypeManager.GameState.Win);
             }
             else

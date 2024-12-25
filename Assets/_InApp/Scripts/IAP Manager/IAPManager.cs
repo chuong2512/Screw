@@ -11,6 +11,7 @@ public class IAPKey
     public const string PACK2 = "add3";
     public const string PACK3 = "add5";
     public const string PACK4 = "add10";
+    public const string PACK5 = "remove_ads";
     
     public const string PACK1_RE = "add1";
     public const string PACK2_RE = "add3";
@@ -52,6 +53,7 @@ public class IAPManager : PersistentSingleton<IAPManager>, IStoreListener
         builder.AddProduct(IAPKey.PACK2, ProductType.Consumable);
         builder.AddProduct(IAPKey.PACK3, ProductType.Consumable);
         builder.AddProduct(IAPKey.PACK4, ProductType.Consumable);
+        builder.AddProduct(IAPKey.PACK5, ProductType.NonConsumable);
         UnityPurchasing.Initialize(this, builder);
     }
 

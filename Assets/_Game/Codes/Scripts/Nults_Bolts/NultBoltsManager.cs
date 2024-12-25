@@ -59,6 +59,7 @@ namespace NultBolts
 
                     break;
                 case TypeManager.GameState.Win:
+                    QuangCao.Instance.PhatQuangCao();
                     DataManager.indexLevel_NB += 1;
                     if (DataManager.levelUnlock_NB < DataManager.indexLevel_NB)
                     {
@@ -67,7 +68,7 @@ namespace NultBolts
                     popupVictory.gameObject.SetActive(true);
                     break;
                 case TypeManager.GameState.Lose:
-
+                    QuangCao.Instance.PhatQuangCao();
                     break;
             }
         }

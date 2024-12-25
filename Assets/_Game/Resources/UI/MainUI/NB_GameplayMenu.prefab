@@ -3362,7 +3362,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 500
+  m_text: 200
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7137805b022d44869b12d93cb388c588, type: 2}
   m_sharedMaterial: {fileID: 8527393934874279224, guid: 7137805b022d44869b12d93cb388c588, type: 2}
@@ -4241,10 +4241,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button Buy Coin (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 2387224612222882611, guid: 63b50fb83c8e8b74082b472c25d9cc54, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 4.4000244
-      objectReference: {fileID: 0}
     - target: {fileID: 7458123920768074093, guid: 63b50fb83c8e8b74082b472c25d9cc54, type: 3}
       propertyPath: m_fontSize
       value: 44.65
@@ -4748,10 +4744,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button Buy Coin (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 2387224612222882611, guid: 63b50fb83c8e8b74082b472c25d9cc54, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 4.4000244
-      objectReference: {fileID: 0}
     - target: {fileID: 7458123920768074093, guid: 63b50fb83c8e8b74082b472c25d9cc54, type: 3}
       propertyPath: m_fontSize
       value: 44.65
@@ -5071,10 +5063,6 @@ PrefabInstance:
     - target: {fileID: 2387224612209779574, guid: 63b50fb83c8e8b74082b472c25d9cc54, type: 3}
       propertyPath: m_Name
       value: Button Buy Coin (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387224612222882611, guid: 63b50fb83c8e8b74082b472c25d9cc54, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 4.4000244
       objectReference: {fileID: 0}
     - target: {fileID: 7458123920768074093, guid: 63b50fb83c8e8b74082b472c25d9cc54, type: 3}
       propertyPath: m_fontSize
