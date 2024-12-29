@@ -7,8 +7,8 @@ public class QuangCao : PersistentSingleton<QuangCao>
 {
 #if UNITY_ANDROID
     // Test ad unit ID: ca-app-pub-3940256099942544/3419835294
-    private const string AD_UNIT_ID = "ca-app-pub-7030564084462348/3506276416";
-    private const string BANNER_UNIT_ID = "ca-app-pub-7030564084462348/3332970305";
+    private const string AD_UNIT_ID = "ca-app-pub-1359637303091082/6429165255";
+    private const string BANNER_UNIT_ID = "ca-app-pub-1359637303091082/6429165255";
 #elif UNITY_IPHONE
       private const string AD_UNIT_ID = "ca-app-pub-7030564084462348/3506276416";
     private const string BANNER_UNIT_ID = "ca-app-pub-7030564084462348/3332970305";
@@ -18,14 +18,11 @@ public class QuangCao : PersistentSingleton<QuangCao>
 
     public void Start()
     {
-        MobileAds.Initialize((initStatus) =>
+        MobileAds.Initialize((InitializationStatus initStatus) =>
         {
             LoadInterstitialAd();
-            LoadRewardedAd();
-            //  LoadBanner();
+            
         });
-
-        // _bannerView.Show();
     }
 
     private AppOpenAd ad;
@@ -42,31 +39,7 @@ public class QuangCao : PersistentSingleton<QuangCao>
             return ad != null && (System.DateTime.UtcNow - loadTime).TotalHours < 4;
         }
     }
-
-    public void LoadAd()
-    {
-        if (IsAdAvailable)
-        {
-            return;
-        }
-
-        AdRequest request = new AdRequest.Builder().Build();
-        AppOpenAd.LoadAd(AD_UNIT_ID, ScreenOrientation.Portrait, request, ((appOpenAd, error) =>
-        {
-            if (error != null)
-            {
-                Debug.LogFormat("Failed to load the ad. (reason: {0})", error.LoadAdError.GetMessage());
-                return;
-            }
-
-            ad = appOpenAd;
-            Debug.Log("App open ad loaded");
-
-            // TODO: Keep track of time when the ad is loaded.
-            loadTime = DateTime.UtcNow;
-        }));
-    }
-
+    
     private RewardedAd rewardedAd;
 
     private InterstitialAd interstitialAd;
@@ -86,64 +59,27 @@ public class QuangCao : PersistentSingleton<QuangCao>
         Debug.Log("Loading the interstitial ad.");
 
         // create our request used to load the ad.
-        var adRequest = new AdRequest.Builder()
-            .AddKeyword("unity-admob-sample")
-            .Build();
+        var adRequest = new AdRequest();
 
         // send the request to load the ad.
         InterstitialAd.Load(AD_UNIT_ID, adRequest,
-            (InterstitialAd ad, LoadAdError error) =>
-            {
-                // if error is not null, the load request failed.
-                if (error != null || ad == null)
-                {
-                    Debug.LogError("interstitial ad failed to load an ad " +
-                                   "with error : " + error);
-                    return;
-                }
-
-                Debug.Log("Interstitial ad loaded with response : "
-                          + ad.GetResponseInfo());
-
-                interstitialAd = ad;
-            });
-    }
-
-    /// <summary>
-    /// Loads the rewarded ad.
-    /// </summary>
-    public void LoadRewardedAd()
-    {
-        // Clean up the old ad before loading a new one.
-        if (rewardedAd != null)
+        (InterstitialAd ad, LoadAdError error) =>
         {
-            rewardedAd.Destroy();
-            rewardedAd = null;
-        }
-
-        Debug.Log("Loading the rewarded ad.");
-
-        // create our request used to load the ad.
-        var adRequest = new AdRequest.Builder().Build();
-
-        // send the request to load the ad.
-        RewardedAd.Load(AD_UNIT_ID, adRequest,
-            (RewardedAd ad, LoadAdError error) =>
+            // if error is not null, the load request failed.
+            if (error != null || ad == null)
             {
-                // if error is not null, the load request failed.
-                if (error != null || ad == null)
-                {
-                    Debug.LogError("Rewarded ad failed to load an ad " +
-                                   "with error : " + error);
-                    return;
-                }
+                Debug.LogError("interstitial ad failed to load an ad " +
+                               "with error : " + error);
+                return;
+            }
 
-                Debug.Log("Rewarded ad loaded with response : "
-                          + ad.GetResponseInfo());
+            Debug.Log("Interstitial ad loaded with response : "
+                      + ad.GetResponseInfo());
 
-                rewardedAd = ad;
-            });
+            interstitialAd = ad;
+        });
     }
+
 
     /// <summary>
     /// Shows the interstitial ad.
@@ -209,26 +145,6 @@ public class QuangCao : PersistentSingleton<QuangCao>
         _bannerView = new BannerView(BANNER_UNIT_ID, AdSize.SmartBanner, AdPosition.Bottom);
     }
 
-    /// <summary>
-    /// Creates the banner view and loads a banner ad.
-    /// </summary>
-    public void LoadBanner()
-    {
-        // create an instance of a banner view first.
-        if (_bannerView == null)
-        {
-            CreateBannerView();
-        }
-
-        // create our request used to load the ad.
-        var adRequest = new AdRequest.Builder()
-            .AddKeyword("unity-admob-sample")
-            .Build();
-
-        // send the request to load the ad.
-        Debug.Log("Loading banner ad.");
-        _bannerView.LoadAd(adRequest);
-    }
 
     /// <summary>
     /// listen to events the banner may raise.
@@ -296,38 +212,7 @@ public class QuangCao : PersistentSingleton<QuangCao>
         ShowAd(null);
     }
 
-    public void ShowAdIfAvailable()
-    {
-        if (!IsAdAvailable || isShowingAd)
-        {
-            return;
-        }
 
-        ad.OnAdDidDismissFullScreenContent += HandleAdDidDismissFullScreenContent;
-        ad.OnAdFailedToPresentFullScreenContent += HandleAdFailedToPresentFullScreenContent;
-        ad.OnAdDidPresentFullScreenContent += HandleAdDidPresentFullScreenContent;
-        ad.OnAdDidRecordImpression += HandleAdDidRecordImpression;
-        ad.OnPaidEvent += HandlePaidEvent;
-
-        ad.Show();
-    }
-
-    private void HandleAdDidDismissFullScreenContent(object sender, EventArgs args)
-    {
-        Debug.Log("Closed app open ad");
-        // Set the ad to null to indicate that AppOpenAdManager no longer has another ad to show.
-        ad = null;
-        isShowingAd = false;
-        LoadAd();
-    }
-
-    private void HandleAdFailedToPresentFullScreenContent(object sender, AdErrorEventArgs args)
-    {
-        Debug.LogFormat("Failed to present the ad (reason: {0})", args.AdError.GetMessage());
-        // Set the ad to null to indicate that AppOpenAdManager no longer has another ad to show.
-        ad = null;
-        LoadAd();
-    }
 
     private void HandleAdDidPresentFullScreenContent(object sender, EventArgs args)
     {
