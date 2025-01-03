@@ -195,7 +195,7 @@ namespace NultBolts
 
         private void UnlockHole(BoardScrewHole screwHole, Action<bool> cb = null)
         {
-            QuangCao.Instance.PhatQuangCao(() => { screwHole.UnlockAds(); });
+        //    QuangCao.Instance.PhatQuangCao(() => { screwHole.UnlockAds(); });
         }
     }
 }
