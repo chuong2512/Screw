@@ -37,7 +37,7 @@ public class BuyCoinButton : MonoBehaviour
         _button?.onClick.AddListener(OnClickButton);
     }
 
-    private void SetDataWithIndex()
+    public void SetDataWithIndex()
     {
         switch (_index)
         {
@@ -56,6 +56,10 @@ public class BuyCoinButton : MonoBehaviour
             case 3:
                 _priceText.SetText("9.99$");
                 _coin = 1000;
+                break;
+            case 5:
+                _priceText.SetText("0.49$");
+                _coin = 10;
                 break;
             case 4:
 
@@ -90,6 +94,10 @@ public class BuyCoinButton : MonoBehaviour
             case 3:
                 IAPManager.Instance.BuyProductID(IAPKey.PACK4);
                 break;
+            
+            case 5:
+                IAPManager.Instance.BuyProductID(IAPKey.PACK05);
+                break;
             case 4:
                 if (GameDataManager.Instance.playerData.removeAds)
                 {
@@ -97,7 +105,7 @@ public class BuyCoinButton : MonoBehaviour
                 }
 
                 IAPManager.OnPurchaseSuccess = RemoveAds;
-                IAPManager.Instance.BuyProductID(IAPKey.PACK4);
+                IAPManager.Instance.BuyProductID(IAPKey.PACK5);
                 break;
         }
     }
